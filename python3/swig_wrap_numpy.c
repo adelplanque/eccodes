@@ -5334,6 +5334,57 @@ fail:
 }
 
 
+SWIGINTERN PyObject *_wrap_grib_c_new_from_fd(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  int arg1 ;
+  int *arg2 = (int *) 0 ;
+  int arg3 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  int temp2 ;
+  int res2 = 0 ;
+  int val3 ;
+  int ecode3 = 0 ;
+  PyObject * obj0 = 0 ;
+  PyObject * obj1 = 0 ;
+  PyObject * obj2 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"OOO:grib_c_new_from_fd",&obj0,&obj1,&obj2)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "grib_c_new_from_fd" "', argument " "1"" of type '" "int""'");
+  } 
+  arg1 = (int)(val1);
+  if (!(SWIG_IsOK((res2 = SWIG_ConvertPtr(obj1,SWIG_as_voidptrptr(&arg2),SWIGTYPE_p_int,0))))) {
+    int val; 
+    int ecode = SWIG_AsVal_int(obj1, &val);
+    if (!SWIG_IsOK(ecode)) {
+      SWIG_exception_fail(SWIG_ArgError(ecode), "in method '" "grib_c_new_from_fd" "', argument " "2"" of type '" "int""'");
+    }
+    temp2 = (int)(val);
+    arg2 = &temp2;
+    res2 = SWIG_AddTmpMask(ecode);
+  }
+  ecode3 = SWIG_AsVal_int(obj2, &val3);
+  if (!SWIG_IsOK(ecode3)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode3), "in method '" "grib_c_new_from_fd" "', argument " "3"" of type '" "int""'");
+  } 
+  arg3 = (int)(val3);
+  result = (int)grib_c_new_from_fd(arg1,arg2,arg3);
+  resultobj = SWIG_From_int((int)(result));
+  if (SWIG_IsTmpObj(res2)) {
+    resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_From_int((*arg2)));
+  } else {
+    int new_flags = SWIG_IsNewObj(res2) ? (SWIG_POINTER_OWN |  0 ) :  0 ;
+    resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_NewPointerObj((void*)(arg2), SWIGTYPE_p_int, new_flags));
+  }
+  return resultobj;
+fail:
+  return NULL;
+}
+
+
 SWIGINTERN PyObject *_wrap_grib_c_new_any_from_file(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
   PyObject *resultobj = 0;
   FILE *arg1 = (FILE *) 0 ;
@@ -5723,6 +5774,28 @@ SWIGINTERN PyObject *_wrap_grib_c_keys_iterator_new(PyObject *SWIGUNUSEDPARM(sel
 fail:
   if (SWIG_IsNewObj(res1)) free((char*)arg1);
   if (alloc3 == SWIG_NEWOBJ) free((char*)buf3);
+  return NULL;
+}
+
+
+SWIGINTERN PyObject *_wrap_grib_c_close_fd(PyObject *SWIGUNUSEDPARM(self), PyObject *args) {
+  PyObject *resultobj = 0;
+  int arg1 ;
+  int val1 ;
+  int ecode1 = 0 ;
+  PyObject * obj0 = 0 ;
+  int result;
+  
+  if (!PyArg_ParseTuple(args,(char *)"O:grib_c_close_fd",&obj0)) SWIG_fail;
+  ecode1 = SWIG_AsVal_int(obj0, &val1);
+  if (!SWIG_IsOK(ecode1)) {
+    SWIG_exception_fail(SWIG_ArgError(ecode1), "in method '" "grib_c_close_fd" "', argument " "1"" of type '" "int""'");
+  } 
+  arg1 = (int)(val1);
+  result = (int)grib_c_close_fd(arg1);
+  resultobj = SWIG_From_int((int)(result));
+  return resultobj;
+fail:
   return NULL;
 }
 
@@ -9702,12 +9775,14 @@ static PyMethodDef SwigMethods[] = {
 	 { (char *)"stringArray_getitem", _wrap_stringArray_getitem, METH_VARARGS, NULL},
 	 { (char *)"stringArray_setitem", _wrap_stringArray_setitem, METH_VARARGS, NULL},
 	 { (char *)"grib_c_new_from_file", _wrap_grib_c_new_from_file, METH_VARARGS, NULL},
+	 { (char *)"grib_c_new_from_fd", _wrap_grib_c_new_from_fd, METH_VARARGS, NULL},
 	 { (char *)"grib_c_new_any_from_file", _wrap_grib_c_new_any_from_file, METH_VARARGS, NULL},
 	 { (char *)"grib_c_new_bufr_from_file", _wrap_grib_c_new_bufr_from_file, METH_VARARGS, NULL},
 	 { (char *)"grib_c_new_gts_from_file", _wrap_grib_c_new_gts_from_file, METH_VARARGS, NULL},
 	 { (char *)"grib_c_new_metar_from_file", _wrap_grib_c_new_metar_from_file, METH_VARARGS, NULL},
 	 { (char *)"grib_c_iterator_new", _wrap_grib_c_iterator_new, METH_VARARGS, NULL},
 	 { (char *)"grib_c_keys_iterator_new", _wrap_grib_c_keys_iterator_new, METH_VARARGS, NULL},
+	 { (char *)"grib_c_close_fd", _wrap_grib_c_close_fd, METH_VARARGS, NULL},
 	 { (char *)"codes_c_bufr_keys_iterator_new", _wrap_codes_c_bufr_keys_iterator_new, METH_VARARGS, NULL},
 	 { (char *)"grib_c_grib_new_from_samples", _wrap_grib_c_grib_new_from_samples, METH_VARARGS, NULL},
 	 { (char *)"grib_c_bufr_new_from_samples", _wrap_grib_c_bufr_new_from_samples, METH_VARARGS, NULL},

@@ -379,6 +379,10 @@ def grib_c_new_from_file(f: 'FILE *', fd: 'int', fname: 'char *', INOUT: 'int *'
     return _gribapi_swig.grib_c_new_from_file(f, fd, fname, INOUT, headers_only)
 grib_c_new_from_file = _gribapi_swig.grib_c_new_from_file
 
+def grib_c_new_from_fd(fd: 'int', INOUT: 'int *', headers_only: 'int') -> "int *":
+    return _gribapi_swig.grib_c_new_from_fd(fd, INOUT, headers_only)
+grib_c_new_from_fd = _gribapi_swig.grib_c_new_from_fd
+
 def grib_c_new_any_from_file(f: 'FILE *', fd: 'int', fname: 'char *', headers_only: 'int', INOUT: 'int *') -> "int *":
     return _gribapi_swig.grib_c_new_any_from_file(f, fd, fname, headers_only, INOUT)
 grib_c_new_any_from_file = _gribapi_swig.grib_c_new_any_from_file
@@ -402,6 +406,10 @@ grib_c_iterator_new = _gribapi_swig.grib_c_iterator_new
 def grib_c_keys_iterator_new(INPUT: 'int *', name_space: 'char *') -> "int *":
     return _gribapi_swig.grib_c_keys_iterator_new(INPUT, name_space)
 grib_c_keys_iterator_new = _gribapi_swig.grib_c_keys_iterator_new
+
+def grib_c_close_fd(fd: 'int') -> "int":
+    return _gribapi_swig.grib_c_close_fd(fd)
+grib_c_close_fd = _gribapi_swig.grib_c_close_fd
 
 def codes_c_bufr_keys_iterator_new(INPUT: 'int *') -> "int *":
     return _gribapi_swig.codes_c_bufr_keys_iterator_new(INPUT)

@@ -26,6 +26,8 @@
 #include <ctype.h>
 #include <errno.h>
 
+#include "Python.h"
+
 #if GRIB_PTHREADS
  static pthread_once_t once  = PTHREAD_ONCE_INIT;
  static pthread_mutex_t handle_mutex = PTHREAD_MUTEX_INITIALIZER;
@@ -1471,6 +1473,50 @@ int grib_c_new_from_file(FILE* f, int fd, char* fname, int* gid, int headers_onl
 
     *gid=-1;
     return GRIB_INVALID_FILE;
+}
+
+int grib_c_new_from_fd(int fd, int *gid, int headers_only){
+    grib_handle *h = NULL;
+    int err = 0;
+    int status;
+
+    FILE* f = retrieve_file_info(fd);
+    if (!f) {
+        int new_fd = dup(fd);
+        f = fdopen(new_fd, "rb");
+        store_file_info(fd, f);
+    }
+
+    Py_BEGIN_ALLOW_THREADS
+    h = grib_new_from_file(0, f, headers_only, &err);
+    Py_END_ALLOW_THREADS
+
+    if (h) {
+        push_handle(h,gid);
+        status = GRIB_SUCCESS;
+    } else {
+        *gid=-1;
+        if (err == GRIB_SUCCESS) {
+            clear_file_info(fd);
+            fclose(f);
+            status = GRIB_END_OF_FILE;
+        } else {
+            /* A real error occurred */
+            status = err;
+        }
+    }
+
+    return status;
+}
+
+int grib_c_close_fd(int fd)
+{
+    FILE* fp = retrieve_file_info(fd);
+    if (fp) {
+        clear_file_info(fd);
+        fclose(fp);
+    }
+    return GRIB_SUCCESS;
 }
 
 int grib_c_new_from_index(int* iid, int* gid){

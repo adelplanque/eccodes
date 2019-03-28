@@ -6,6 +6,7 @@ int grib_c_write_file(int *fid, char *buffer, size_t *nbytes);
 int grib_c_read_file(int *fid, char *buffer, size_t *nbytes);
 int grib_c_open_file(int *fid, char *name, char *op);
 int grib_c_close_file(int *fid);
+int grib_c_close_fd(int fd);
 int grib_c_multi_support_on(void);
 int grib_c_multi_support_off(void);
 int grib_c_iterator_new(int *gid, int *iterid, int *mode);
@@ -40,6 +41,7 @@ int grib_c_count_in_file(FILE *f, int *n);
 
 int codes_c_close_file(int fd, char* fname);
 int grib_c_new_from_file(FILE *f, int fd, char* fname, int *gid, int headers_only);
+int grib_c_new_from_fd(int fd, int *gid, int headers_only);
 int grib_c_new_any_from_file(FILE *f, int fd, char* fname, int headers_only,int *gid);
 int grib_c_new_bufr_from_file(FILE *f, int fd, char* fname, int headers_only,int *gid);
 int grib_c_new_gts_from_file(FILE *f, int fd, char* fname, int headers_only, int *gid);

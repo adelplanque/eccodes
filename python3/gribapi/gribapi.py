@@ -310,6 +310,23 @@ def grib_new_from_file(fileobj, headers_only=False):
         return gribid
 
 
+@require(fd=int)
+def grib_new_from_fd(fd, headers_only=False):
+    err, gribid = _internal.grib_c_new_from_fd(fd, 0, headers_only)
+    if err:
+        if err == _internal.GRIB_END_OF_FILE:
+            return None
+        else:
+            GRIB_CHECK(err)
+    else:
+        return gribid
+
+
+@require(fd=int)
+def grib_close_fd(fd):
+    _internal.grib_c_close_fd(fd)
+
+
 @require(fileobj=file)
 def codes_close_file(fileobj):
     # The client must call this BEFORE calling close() on the file object
