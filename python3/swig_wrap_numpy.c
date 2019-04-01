@@ -9566,8 +9566,9 @@ SWIGINTERN PyObject *_wrap_grib_c_get_message(PyObject *SWIGUNUSEDPARM(self), Py
   result = (int)grib_c_get_message(arg1,(void const **)arg2,arg3);
   resultobj = SWIG_From_int((int)(result));
   if (*arg2) {
-    resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_FromCharPtrAndSize(*arg2,*arg3));
-    ;
+    resultobj = SWIG_Python_AppendOutput(resultobj, PyBytes_FromStringAndSize(*arg2, (Py_ssize_t)(*arg3)));
+  } else {
+    resultobj = SWIG_Python_AppendOutput(resultobj, SWIG_Py_Void());
   }
   if (SWIG_IsNewObj(res1)) free((char*)arg1);
   return resultobj;

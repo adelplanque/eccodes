@@ -249,7 +249,17 @@ int grib_c_find_nearest_four_single(int* gid, int* INPUT, double* INPUT, double*
 * is a problem as grib_api does not know that, so it tries to free it
 * itself (grib_release does that) resulting in a 'Segmentation fault'.
 */
-%cstring_output_allocate_size(const void **binmsg, size_t *binmsglen,);
+%typemap(in,noblock=1,numinputs=0) (const void **binmsg, size_t *binmsglen) ($*1_ltype temp = 0, $*2_ltype tempn) {
+    $1 = &temp; $2 = &tempn;
+}
+%typemap(freearg,match="in") (const void **binmsg, size_t *binmsglen) "";
+%typemap(argout,noblock=1) (const void **binmsg, size_t *binmsglen) {
+    if (*$1) {
+        %append_output(PyBytes_FromStringAndSize(*$1, (Py_ssize_t)(*$2)));
+    } else {
+        %append_output(SWIG_Py_Void());
+    }
+}
 int grib_c_get_message(int *gid, const void **binmsg, size_t *binmsglen);
 %clear const void **binmsg, size_t *binmsglen;
 
